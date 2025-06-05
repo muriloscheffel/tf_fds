@@ -1,6 +1,6 @@
 package com.scheffel.tf_fds.dominio.modelos;
 
-public class ItemDeEstoqueModel{
+public class ItemDeEstoqueModel {
     private long id;
     private ProdutoModel produto;
     private int quantidade;

@@ -21,7 +21,7 @@ public class PedidoModel {
         return new ArrayList<ItemPedidoModel>(itens);
     }
 
-    public void addItem(ItemPedidoModel item){
+    public void addItem(ItemPedidoModel item) {
         itens.add(item);
     }
 }

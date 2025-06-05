@@ -1,4 +1,4 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

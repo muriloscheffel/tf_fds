@@ -1,10 +1,9 @@
 package com.scheffel.tf_fds.dominio.modelos;
 
-public class ProdutoModel{
+public class ProdutoModel {
     private long id;
     private String descricao;
     private double precoUnitario;
-
 
     public ProdutoModel(long id, String descricao, double precoUnitario) {
         this.id = id;
@@ -31,9 +30,9 @@ public class ProdutoModel{
     @Override
     public String toString() {
         return "{" +
-            " codigo='" + getId() + "'" +
-            ", descricao='" + getDescricao() + "'" +
-            ", precoUnitario='" + getPrecoUnitario() + "'" +
-            "}";
+                " codigo='" + getId() + "'" +
+                ", descricao='" + getDescricao() + "'" +
+                ", precoUnitario='" + getPrecoUnitario() + "'" +
+                "}";
     }
 }

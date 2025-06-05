@@ -20,5 +20,5 @@ public class ItemPedidoDTO {
     @Override
     public String toString() {
         return "ItemPedidoDTO [idProduto=" + idProduto + ", qtdade=" + qtdade + "]";
-    }    
+    }
 }

@@ -1,4 +1,4 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.rep;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,16 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import com.scheffel.tf_fds.dominio.modelos.ProdutoModel;
 import com.scheffel.tf_fds.dominio.persistencia.IProdutoRepositorio;
+import com.scheffel.tf_fds.persistencia.entity.Produto;
+import com.scheffel.tf_fds.persistencia.jpa.ProdutoJPA_ItfRep;
 
 @Repository
 @Primary
 public class ProdutoRepJPA implements IProdutoRepositorio {
-    private ProdutoJPA_ItfRep produtoRepository;
 
     @Autowired
-    public ProdutoRepJPA(ProdutoJPA_ItfRep produtoRepository) {
-        this.produtoRepository = produtoRepository;
-    }
+    private ProdutoJPA_ItfRep produtoRepository;
 
     public List<ProdutoModel> todos() {
         List<Produto> produtos = produtoRepository.findAll();
@@ -33,7 +32,7 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
 
     public ProdutoModel consultaPorId(long id) {
         Produto produto = produtoRepository.findById(id);
-        System.out.println("Produto de codigo: "+id+": "+produto);
+        System.out.println("Produto de codigo: " + id + ": " + produto);
         if (produto == null) {
             return null;
         } else {

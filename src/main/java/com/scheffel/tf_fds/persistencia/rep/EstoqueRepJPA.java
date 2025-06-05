@@ -1,4 +1,4 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.rep;
 
 import java.util.List;
 
@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import com.scheffel.tf_fds.dominio.modelos.ProdutoModel;
 import com.scheffel.tf_fds.dominio.persistencia.IEstoqueRepositorio;
+import com.scheffel.tf_fds.persistencia.entity.ItemDeEstoque;
+import com.scheffel.tf_fds.persistencia.entity.Produto;
+import com.scheffel.tf_fds.persistencia.jpa.EstoqueJPA_ItfRep;
 
 @Repository
 @Primary

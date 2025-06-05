@@ -8,14 +8,14 @@ import com.scheffel.tf_fds.dominio.servicos.ServicoDeVendas;
 
 @Component
 public class BuscaOrcamentoUC {
-        
+
     private ServicoDeVendas servicoDeVendas;
-        
-    public BuscaOrcamentoUC(ServicoDeVendas servicoDeVendas){
-            this.servicoDeVendas = servicoDeVendas;
-        }
-    
-    public OrcamentoModel run(long idOrcamento){
-        return servicoDeVendas.buscaOrcamento(idOrcamento);
-        }
+
+    public BuscaOrcamentoUC(ServicoDeVendas servicoDeVendas) {
+        this.servicoDeVendas = servicoDeVendas;
     }
+
+    public OrcamentoModel run(long idOrcamento) {
+        return servicoDeVendas.buscaOrcamento(idOrcamento);
+    }
+}

@@ -4,7 +4,7 @@ public class ItemPedidoModel {
     private long id;
     private ProdutoModel produto;
     private int quantidade;
-    
+
     public ItemPedidoModel(long id, ProdutoModel produto, int quantidade) {
         this.id = id;
         this.produto = produto;
@@ -16,8 +16,13 @@ public class ItemPedidoModel {
         this.quantidade = quantidade;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id;}
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public ProdutoModel getProduto() {
         return produto;

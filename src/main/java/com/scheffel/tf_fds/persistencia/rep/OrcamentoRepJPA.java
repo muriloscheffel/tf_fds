@@ -1,4 +1,4 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.rep;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
 
 import com.scheffel.tf_fds.dominio.persistencia.IOrcamentoRepositorio;
+import com.scheffel.tf_fds.persistencia.entity.Orcamento;
+import com.scheffel.tf_fds.persistencia.jpa.OrcamentoJPA_ItfRep;
 
 
 @Repository

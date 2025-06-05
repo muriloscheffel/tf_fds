@@ -21,10 +21,12 @@ public class OrcamentoDTO {
         this.imposto = orcamento.getImposto();
         this.desconto = orcamento.getDesconto();
         this.custoConsumidor = orcamento.getCustoConsumidor();
-        if (orcamento.isEfetivado()) this.efetivado = true;
-        else this.efetivado = false;
+        if (orcamento.isEfetivado())
+            this.efetivado = true;
+        else
+            this.efetivado = false;
         itens = new LinkedList<>();
-        for(ItemPedidoModel item:orcamento.getItens()){
+        for (ItemPedidoModel item : orcamento.getItens()) {
             itens.add(new ItemPedidoDTO(item.getProduto().getId(), item.getQuantidade()));
         }
     }
@@ -33,7 +35,7 @@ public class OrcamentoDTO {
         return id;
     }
 
-    public List<ItemPedidoDTO> getItens(){
+    public List<ItemPedidoDTO> getItens() {
         return itens;
     }
 
@@ -57,11 +59,11 @@ public class OrcamentoDTO {
         return efetivado;
     }
 
-    public void efetiva(){
+    public void efetiva() {
         efetivado = true;
     }
 
-    public static OrcamentoDTO fromModel(OrcamentoModel orcamento){
+    public static OrcamentoDTO fromModel(OrcamentoModel orcamento) {
         return new OrcamentoDTO(orcamento);
     }
 }

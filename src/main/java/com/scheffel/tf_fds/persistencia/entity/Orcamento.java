@@ -1,11 +1,10 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.scheffel.tf_fds.dominio.modelos.ItemPedidoModel;
 import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

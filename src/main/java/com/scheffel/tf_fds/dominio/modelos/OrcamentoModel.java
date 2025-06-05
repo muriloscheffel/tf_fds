@@ -18,22 +18,22 @@ public class OrcamentoModel {
         this.efetivado = false;
     }
 
-    public OrcamentoModel(){
+    public OrcamentoModel() {
         this.itens = new LinkedList<>();
         this.efetivado = false;
     }
 
-    public void addItensPedido(ItemPedidoModel item){
-        itens.add(item);     
+    public void addItensPedido(ItemPedidoModel item) {
+        itens.add(item);
     }
 
-    public void addItensPedido(PedidoModel pedido){
-        for(ItemPedidoModel itemPedido:pedido.getItens()){
+    public void addItensPedido(PedidoModel pedido) {
+        for (ItemPedidoModel itemPedido : pedido.getItens()) {
             itens.add(itemPedido);
         }
     }
 
-    public List<ItemPedidoModel> getItens(){
+    public List<ItemPedidoModel> getItens() {
         return itens;
     }
 
@@ -41,7 +41,7 @@ public class OrcamentoModel {
         return id;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -49,7 +49,7 @@ public class OrcamentoModel {
         return custoItens;
     }
 
-    public void setCustoItens(double custoItens){
+    public void setCustoItens(double custoItens) {
         this.custoItens = custoItens;
     }
 
@@ -57,7 +57,7 @@ public class OrcamentoModel {
         return imposto;
     }
 
-    public void setImposto(double imposto){
+    public void setImposto(double imposto) {
         this.imposto = imposto;
     }
 
@@ -65,7 +65,7 @@ public class OrcamentoModel {
         return desconto;
     }
 
-    public void setDesconto(double desconto){
+    public void setDesconto(double desconto) {
         this.desconto = desconto;
     }
 
@@ -73,7 +73,7 @@ public class OrcamentoModel {
         return custoConsumidor;
     }
 
-    public void setCustoConsumidor(double custoConsumidor){
+    public void setCustoConsumidor(double custoConsumidor) {
         this.custoConsumidor = custoConsumidor;
     }
 
@@ -81,7 +81,7 @@ public class OrcamentoModel {
         return efetivado;
     }
 
-    public void efetiva(){
+    public void efetiva() {
         efetivado = true;
     }
 }

@@ -1,4 +1,4 @@
-package com.scheffel.tf_fds.persistencia;
+package com.scheffel.tf_fds.persistencia.entity;
 
 import com.scheffel.tf_fds.dominio.modelos.ItemPedidoModel;
 import com.scheffel.tf_fds.dominio.modelos.ProdutoModel;
