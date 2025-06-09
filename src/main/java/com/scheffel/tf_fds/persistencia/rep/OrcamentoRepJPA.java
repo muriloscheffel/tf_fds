@@ -2,8 +2,6 @@ package com.scheffel.tf_fds.persistencia.rep;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -14,26 +12,25 @@ import com.scheffel.tf_fds.dominio.persistencia.IOrcamentoRepositorio;
 import com.scheffel.tf_fds.persistencia.entity.Orcamento;
 import com.scheffel.tf_fds.persistencia.jpa.OrcamentoJPA_ItfRep;
 
-
 @Repository
 @Primary
-public class OrcamentoRepJPA implements IOrcamentoRepositorio
-   {
+public class OrcamentoRepJPA implements IOrcamentoRepositorio {
+
     @Autowired
     private OrcamentoJPA_ItfRep orcamentos;
 
     @Override
     public List<OrcamentoModel> todos() {
         return orcamentos.findAll().stream()
-                  .map(o->Orcamento.toOrcamentoModel(o))
-                  .toList();
+                .map(o -> Orcamento.toOrcamentoModel(o))
+                .toList();
     }
 
     @Override
     public OrcamentoModel cadastra(OrcamentoModel orcamento) {
         Orcamento orc = orcamentos.save(Orcamento.fromOrcamentoModel(orcamento));
         return Orcamento.toOrcamentoModel(orc);
-        
+
     }
 
     @Override

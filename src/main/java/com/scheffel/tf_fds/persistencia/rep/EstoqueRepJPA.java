@@ -14,7 +14,8 @@ import com.scheffel.tf_fds.persistencia.jpa.EstoqueJPA_ItfRep;
 
 @Repository
 @Primary
-public class EstoqueRepJPA implements IEstoqueRepositorio{
+public class EstoqueRepJPA implements IEstoqueRepositorio {
+
     @Autowired
     private EstoqueJPA_ItfRep estoque;
 
@@ -22,7 +23,7 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     public List<ProdutoModel> todos() {
         List<ItemDeEstoque> itens = estoque.findAll();
         return itens.stream()
-                .map(it->Produto.toProdutoModel(it.getProduto()))
+                .map(it -> Produto.toProdutoModel(it.getProduto()))
                 .toList();
     }
 
@@ -30,30 +31,30 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     public List<ProdutoModel> todosComEstoque() {
         List<ItemDeEstoque> itens = estoque.findAll();
         return itens.stream()
-                .filter(it->it.getQuantidade()>0)
-                .map(it->Produto.toProdutoModel(it.getProduto()))
+                .filter(it -> it.getQuantidade() > 0)
+                .map(it -> Produto.toProdutoModel(it.getProduto()))
                 .toList();
     }
 
     @Override
     public int quantidadeEmEstoque(long codigo) {
         ItemDeEstoque item = this.findByProdId(codigo);
-        System.out.println("item: "+item);
-        if (item == null){
+        System.out.println("item: " + item);
+        if (item == null) {
             return -1;
-        }else{
+        } else {
             return item.getQuantidade();
         }
-            
+
     }
 
     @Override
     public int baixaEstoque(long codProd, int qtdade) {
         ItemDeEstoque item = this.findByProdId(codProd);
-        if (item == null){
+        if (item == null) {
             throw new IllegalArgumentException("Produto inexistente");
         }
-        if (item.getQuantidade() < qtdade){
+        if (item.getQuantidade() < qtdade) {
             throw new IllegalArgumentException("Quantidade em estoque insuficiente");
         }
         int novaQuantidade = item.getQuantidade() - qtdade;
@@ -62,10 +63,10 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
         return novaQuantidade;
     }
 
-    private ItemDeEstoque findByProdId(long cod){
+    private ItemDeEstoque findByProdId(long cod) {
         return estoque.findAll().stream()
-                    .filter(it->it.getProduto().getId()==cod)
-                    .findFirst()
-                    .orElse(null);
+                .filter(it -> it.getProduto().getId() == cod)
+                .findFirst()
+                .orElse(null);
     }
 }
