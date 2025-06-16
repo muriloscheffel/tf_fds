@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import com.scheffel.tf_fds.dominio.modelos.ItemDeEstoqueModel;
 import com.scheffel.tf_fds.dominio.modelos.ProdutoModel;
 import com.scheffel.tf_fds.dominio.persistencia.IEstoqueRepositorio;
 import com.scheffel.tf_fds.persistencia.entity.ItemDeEstoque;
@@ -68,5 +69,16 @@ public class EstoqueRepJPA implements IEstoqueRepositorio {
                 .filter(it -> it.getProduto().getId() == cod)
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public ItemDeEstoque chegadaProduto(ItemDeEstoqueModel produto) {
+        // Cria um novo item de estoque
+        Produto prod = Produto.fromProdutoModel(produto.getProduto());
+        ItemDeEstoque item = new ItemDeEstoque(produto.getId(), prod, produto.getQuantidade(), produto.getEstoqueMin(),
+                produto.getEstoqueMax());
+
+        // estoque.save(item);
+        return item;
     }
 }
