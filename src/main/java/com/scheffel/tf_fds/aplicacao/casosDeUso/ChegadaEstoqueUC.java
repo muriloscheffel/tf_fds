@@ -10,6 +10,6 @@ public class ChegadaEstoqueUC {
   private ServicoDeEstoque servicoDeEstoque;
 
   public boolean run(ItemDeEstoqueModel item) {
-    
+    return false;
   }
 }
