@@ -78,7 +78,7 @@ public class EstoqueRepJPA implements IEstoqueRepositorio {
         ItemDeEstoque item = new ItemDeEstoque(produto.getId(), prod, produto.getQuantidade(), produto.getEstoqueMin(),
                 produto.getEstoqueMax());
 
-        // estoque.save(item);
+        estoque.save(item);
         return item;
     }
 }

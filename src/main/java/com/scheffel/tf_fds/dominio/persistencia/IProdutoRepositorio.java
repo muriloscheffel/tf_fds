@@ -8,4 +8,6 @@ public interface IProdutoRepositorio {
     List<ProdutoModel> todos();
 
     ProdutoModel consultaPorId(long codigo);
+
+    ProdutoModel cadastraProduto(ProdutoModel produto);
 }

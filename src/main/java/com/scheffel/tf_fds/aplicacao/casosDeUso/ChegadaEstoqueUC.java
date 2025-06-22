@@ -1,15 +1,19 @@
 package com.scheffel.tf_fds.aplicacao.casosDeUso;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.scheffel.tf_fds.dominio.modelos.ItemDeEstoqueModel;
+import org.springframework.stereotype.Component;
+import com.scheffel.tf_fds.aplicacao.dtos.ChegadaProdutoDTO;
 import com.scheffel.tf_fds.dominio.servicos.ServicoDeEstoque;
 
+@Component
 public class ChegadaEstoqueUC {
-  @Autowired
+  
   private ServicoDeEstoque servicoDeEstoque;
 
-  public boolean run(ItemDeEstoqueModel item) {
-    return false;
+  public ChegadaEstoqueUC(ServicoDeEstoque servicoDeEstoque){
+    this.servicoDeEstoque = servicoDeEstoque;
+  }
+
+  public void run(ChegadaProdutoDTO chegada) {
+    servicoDeEstoque.registrarEntradaEstoque(chegada.getProdutoId(), chegada.getQuantidade());
   }
 }

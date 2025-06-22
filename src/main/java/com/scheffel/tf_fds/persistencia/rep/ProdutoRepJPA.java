@@ -19,6 +19,7 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
     @Autowired
     private ProdutoJPA_ItfRep produtoRepository;
 
+    @Override
     public List<ProdutoModel> todos() {
         List<Produto> produtos = produtoRepository.findAll();
         if (produtos.size() == 0) {
@@ -30,6 +31,7 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
         }
     }
 
+    @Override
     public ProdutoModel consultaPorId(long id) {
         Produto produto = produtoRepository.findById(id);
         System.out.println("Produto de codigo: " + id + ": " + produto);
@@ -37,6 +39,17 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
             return null;
         } else {
             return Produto.toProdutoModel(produto);
+        }
+    }
+
+    @Override
+    public ProdutoModel cadastraProduto(ProdutoModel produto) {
+        if(produto == null) {
+            throw new IllegalArgumentException("Produto não pode ser nulo");
+        } else {
+            Produto prodEntity = Produto.fromProdutoModel(produto);
+            Produto savedProd = produtoRepository.save(prodEntity);
+            return Produto.toProdutoModel(savedProd);
         }
     }
 }

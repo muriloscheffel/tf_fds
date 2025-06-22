@@ -1,5 +1,6 @@
 package com.scheffel.tf_fds.aplicacao.dtos;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
 
 public class OrcamentoDTO {
     private long id;
+    private String nomeCliente;
+    private String estado;
+    private LocalDate dataCriacao;
     private List<ItemPedidoDTO> itens;
     private double custoItens;
     private double imposto;
@@ -17,20 +21,35 @@ public class OrcamentoDTO {
 
     public OrcamentoDTO(OrcamentoModel orcamento) {
         this.id = orcamento.getId();
+        this.nomeCliente = orcamento.getNomeCliente();
+        this.estado = orcamento.getEstado();
+        this.dataCriacao = orcamento.getDataCriacao();
         this.custoItens = orcamento.getCustoItens();
         this.imposto = orcamento.getImposto();
         this.desconto = orcamento.getDesconto();
         this.custoConsumidor = orcamento.getCustoConsumidor();
-        if (orcamento.isEfetivado())
-            this.efetivado = true;
-        else
-            this.efetivado = false;
-        itens = new LinkedList<>();
+        this.efetivado = orcamento.isEfetivado();
+
+        this.itens = new LinkedList<>();
         for (ItemPedidoModel item : orcamento.getItens()) {
             itens.add(new ItemPedidoDTO(item.getProduto().getId(), item.getQuantidade()));
         }
     }
 
+    // Adicionar Getters para os novos campos
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
+
+    // Getters existentes...
     public long getId() {
         return id;
     }
@@ -57,10 +76,6 @@ public class OrcamentoDTO {
 
     public boolean isEfetivado() {
         return efetivado;
-    }
-
-    public void efetiva() {
-        efetivado = true;
     }
 
     public static OrcamentoDTO fromModel(OrcamentoModel orcamento) {

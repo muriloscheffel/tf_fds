@@ -3,7 +3,6 @@ package com.scheffel.tf_fds.persistencia.jpa;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import com.scheffel.tf_fds.persistencia.entity.ItemDeEstoque;
 

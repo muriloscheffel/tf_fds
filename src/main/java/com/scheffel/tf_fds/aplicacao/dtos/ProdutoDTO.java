@@ -28,4 +28,8 @@ public class ProdutoDTO {
     public static ProdutoDTO fromModel(ProdutoModel produto) {
         return new ProdutoDTO(produto.getId(), produto.getDescricao(), produto.getPrecoUnitario());
     }
+
+    public static ProdutoModel toModel(ProdutoDTO prod){
+        return new ProdutoModel(prod.getId(),prod.getDescricao(),prod.getPrecoUnitario());
+    }
 }

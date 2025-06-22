@@ -1,10 +1,8 @@
 package com.scheffel.tf_fds.aplicacao.casosDeUso;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
-import com.scheffel.tf_fds.aplicacao.dtos.ItemPedidoDTO;
+import com.scheffel.tf_fds.aplicacao.dtos.NovoOrcamentoDTO;
 import com.scheffel.tf_fds.aplicacao.dtos.OrcamentoDTO;
 import com.scheffel.tf_fds.dominio.modelos.ItemPedidoModel;
 import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
@@ -23,14 +21,15 @@ public class CriaOrcamentoUC {
         this.servicoDeEstoque = servicoDeEstoque;
     }
 
-    public OrcamentoDTO run(List<ItemPedidoDTO> itens) {
+    public OrcamentoDTO run(NovoOrcamentoDTO novoOrcamento) {
         PedidoModel pedido = new PedidoModel(0);
-        for (ItemPedidoDTO item : itens) {
+        novoOrcamento.getItens().forEach(item -> {
             ProdutoModel produto = servicoDeEstoque.produtoPorCodigo(item.getIdProduto());
             ItemPedidoModel itemPedido = new ItemPedidoModel(produto, item.getQtdade());
             pedido.addItem(itemPedido);
-        }
-        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido);
+        });
+        
+        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido, novoOrcamento.getNomeCliente(), novoOrcamento.getEstado());
         return OrcamentoDTO.fromModel(orcamento);
     }
 }

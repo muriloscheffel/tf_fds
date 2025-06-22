@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.scheffel.tf_fds.dominio.persistencia.IEstoqueRepositorio;
-import com.scheffel.tf_fds.dominio.persistencia.IProdutoRepositorio;
 import com.scheffel.tf_fds.dominio.modelos.ItemDeEstoqueModel;
 import com.scheffel.tf_fds.dominio.modelos.ProdutoModel;
+import com.scheffel.tf_fds.dominio.persistencia.IEstoqueRepositorio;
+import com.scheffel.tf_fds.dominio.persistencia.IProdutoRepositorio;
 
 @Service
 public class ServicoDeEstoque {
@@ -39,6 +39,11 @@ public class ServicoDeEstoque {
         estoque.baixaEstoque(id, qtdade);
     }
 
+    public ProdutoModel cadastraProduto(ProdutoModel produto) {
+        produtos.cadastraProduto(produto);
+        return produto;
+    }
+
     public boolean chegadaEstoque(ItemDeEstoqueModel item) {
         if (item == null || item.getProduto() == null) {
             throw new IllegalArgumentException("Item ou produto inválido");
@@ -46,6 +51,8 @@ public class ServicoDeEstoque {
         if (item.getQuantidade() <= 0) {
             throw new IllegalArgumentException("Quantidade deve ser maior que zero");
         }
-        return estoque.chegadaProduto(item) != null;
+        var resultado = estoque.chegadaProduto(item);
+        System.out.println("Chegada de estoque: " + (resultado != null ? "sucesso" : "falha"));
+        return resultado != null;
     }
 }

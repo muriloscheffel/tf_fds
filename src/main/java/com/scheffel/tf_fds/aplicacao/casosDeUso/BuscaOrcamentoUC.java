@@ -1,6 +1,6 @@
 package com.scheffel.tf_fds.aplicacao.casosDeUso;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.scheffel.tf_fds.aplicacao.dtos.OrcamentoDTO;
 import org.springframework.stereotype.Component;
 
 import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
@@ -15,7 +15,9 @@ public class BuscaOrcamentoUC {
         this.servicoDeVendas = servicoDeVendas;
     }
 
-    public OrcamentoModel run(long idOrcamento) {
-        return servicoDeVendas.buscaOrcamento(idOrcamento);
+    public OrcamentoDTO run(long idOrcamento) {
+        OrcamentoModel orcModel = servicoDeVendas.buscaOrcamento(idOrcamento);
+
+        return OrcamentoDTO.fromModel(orcModel);
     }
 }
