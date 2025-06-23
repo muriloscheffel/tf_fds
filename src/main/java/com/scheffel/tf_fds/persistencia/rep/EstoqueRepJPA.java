@@ -12,6 +12,9 @@ import com.scheffel.tf_fds.dominio.persistencia.IEstoqueRepositorio;
 import com.scheffel.tf_fds.persistencia.entity.ItemDeEstoque;
 import com.scheffel.tf_fds.persistencia.entity.Produto;
 import com.scheffel.tf_fds.persistencia.jpa.EstoqueJPA_ItfRep;
+import com.scheffel.tf_fds.persistencia.jpa.ProdutoJPA_ItfRep;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Repository
 @Primary
@@ -19,6 +22,8 @@ public class EstoqueRepJPA implements IEstoqueRepositorio {
 
     @Autowired
     private EstoqueJPA_ItfRep estoque;
+    @Autowired
+    private ProdutoJPA_ItfRep produtos;
 
     @Override
     public List<ProdutoModel> todos() {
@@ -73,12 +78,45 @@ public class EstoqueRepJPA implements IEstoqueRepositorio {
 
     @Override
     public ItemDeEstoque chegadaProduto(ItemDeEstoqueModel produto) {
-        // Cria um novo item de estoque
-        Produto prod = Produto.fromProdutoModel(produto.getProduto());
-        ItemDeEstoque item = new ItemDeEstoque(produto.getId(), prod, produto.getQuantidade(), produto.getEstoqueMin(),
-                produto.getEstoqueMax());
+        Produto prod = produtos.findById(produto.getProduto().getId());
+        if (prod == null) {
+            throw new EntityNotFoundException("Produto com ID " + produto.getProduto().getId() + " não encontrado.");
+        }
+        ItemDeEstoque itemExistente = findByProdId(prod.getId());
+        if (itemExistente != null) {
+            itemExistente.setQuantidade(itemExistente.getQuantidade() + produto.getQuantidade());
+            return estoque.save(itemExistente);
+        }
 
+        ItemDeEstoque novoItem = new ItemDeEstoque(
+                produto.getId(),
+                prod,
+                produto.getQuantidade(),
+                produto.getEstoqueMin(),
+                produto.getEstoqueMax());
+        return estoque.save(novoItem);
+    }
+
+    @Override
+    public void entradaEstoque(long codProd, int qtdade) {
+        ItemDeEstoque item = this.findByProdId(codProd);
+        if (item == null) {
+            throw new IllegalArgumentException("Produto com código " + codProd + " não cadastrado no estoque.");
+        }
+        item.setQuantidade(item.getQuantidade() + qtdade);
         estoque.save(item);
-        return item;
+    }
+
+    @Override
+    public List<ItemDeEstoqueModel> todosItensDeEstoque() {
+        return estoque.findAll()
+                .stream()
+                .map(item -> new ItemDeEstoqueModel(
+                        item.getId(),
+                        Produto.toProdutoModel(item.getProduto()),
+                        item.getQuantidade(),
+                        item.getEstoqueMin(),
+                        item.getEstoqueMax()))
+                .toList();
     }
 }

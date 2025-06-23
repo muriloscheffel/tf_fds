@@ -15,5 +15,9 @@ public interface IEstoqueRepositorio {
 
     int baixaEstoque(long codProd, int qtdade);
 
+    void entradaEstoque(long codProd, int qtdade);
+
     ItemDeEstoque chegadaProduto(ItemDeEstoqueModel produto);
+
+    List<ItemDeEstoqueModel> todosItensDeEstoque();
 }

@@ -44,7 +44,7 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
 
     @Override
     public ProdutoModel cadastraProduto(ProdutoModel produto) {
-        if(produto == null) {
+        if (produto == null) {
             throw new IllegalArgumentException("Produto não pode ser nulo");
         } else {
             Produto prodEntity = Produto.fromProdutoModel(produto);

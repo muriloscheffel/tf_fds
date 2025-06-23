@@ -29,7 +29,7 @@ public class ProdutoDTO {
         return new ProdutoDTO(produto.getId(), produto.getDescricao(), produto.getPrecoUnitario());
     }
 
-    public static ProdutoModel toModel(ProdutoDTO prod){
-        return new ProdutoModel(prod.getId(),prod.getDescricao(),prod.getPrecoUnitario());
+    public static ProdutoModel toModel(ProdutoDTO prod) {
+        return new ProdutoModel(prod.getId(), prod.getDescricao(), prod.getPrecoUnitario());
     }
 }

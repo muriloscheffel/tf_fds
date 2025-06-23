@@ -14,26 +14,33 @@ public class ItemPedido {
     @Id
     @GeneratedValue
     public long id;
-    
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Produto produto;
     private int quantidade;
-    
+
     public ItemPedido(long id, Produto produto, int quantidade) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
     }
+
     public ItemPedido(Produto produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
     }
 
-    protected ItemPedido() {}
+    protected ItemPedido() {
+    }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id;}
-    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Produto getProduto() {
         return produto;
     }
@@ -51,13 +58,12 @@ public class ItemPedido {
         return "ItemPedido [produto=" + produto + ", quantidade=" + quantidade + "]";
     }
 
-
-    public static ItemPedido fromItemPedidoModel(ItemPedidoModel ipModel){
+    public static ItemPedido fromItemPedidoModel(ItemPedidoModel ipModel) {
         Produto prod = Produto.fromProdutoModel(ipModel.getProduto());
-        return new ItemPedido(ipModel.getId(),prod,ipModel.getQuantidade());
+        return new ItemPedido(ipModel.getId(), prod, ipModel.getQuantidade());
     }
 
-    public static ItemPedidoModel toItemPedidoModel(ItemPedido ip){
+    public static ItemPedidoModel toItemPedidoModel(ItemPedido ip) {
         ProdutoModel prod = Produto.toProdutoModel(ip.getProduto());
         return new ItemPedidoModel(ip.getId(), prod, ip.getQuantidade());
     }

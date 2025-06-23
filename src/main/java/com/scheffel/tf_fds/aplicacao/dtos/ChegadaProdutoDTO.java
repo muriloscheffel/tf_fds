@@ -4,7 +4,6 @@ public class ChegadaProdutoDTO {
     private long produtoId;
     private int quantidade;
 
-    // Construtor, getters e setters
     public ChegadaProdutoDTO(long produtoId, int quantidade) {
         this.produtoId = produtoId;
         this.quantidade = quantidade;

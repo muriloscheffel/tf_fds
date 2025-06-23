@@ -12,8 +12,9 @@ public class Produto {
     private String descricao;
     private double precoUnitario;
 
-    protected Produto(){ }
-    
+    protected Produto() {
+    }
+
     public Produto(long id, String descricao, double precoUnitario) {
         this.id = id;
         this.descricao = descricao;
@@ -39,17 +40,17 @@ public class Produto {
     @Override
     public String toString() {
         return "{" +
-            " id ='" + getId() + "'" +
-            ", descricao='" + getDescricao() + "'" +
-            ", precoUnitario='" + getPrecoUnitario() + "'" +
-            "}";
+                " id ='" + getId() + "'" +
+                ", descricao='" + getDescricao() + "'" +
+                ", precoUnitario='" + getPrecoUnitario() + "'" +
+                "}";
     }
 
-    public static Produto fromProdutoModel(ProdutoModel pModel){
-        return new Produto(pModel.getId(),pModel.getDescricao(),pModel.getPrecoUnitario());
+    public static Produto fromProdutoModel(ProdutoModel pModel) {
+        return new Produto(pModel.getId(), pModel.getDescricao(), pModel.getPrecoUnitario());
     }
 
-    public static ProdutoModel toProdutoModel(Produto prod){
-        return new ProdutoModel(prod.getId(),prod.getDescricao(),prod.getPrecoUnitario());
+    public static ProdutoModel toProdutoModel(Produto prod) {
+        return new ProdutoModel(prod.getId(), prod.getDescricao(), prod.getPrecoUnitario());
     }
 }

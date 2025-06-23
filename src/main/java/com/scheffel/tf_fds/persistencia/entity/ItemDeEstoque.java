@@ -6,8 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class ItemDeEstoque {  
-    @Id  
+public class ItemDeEstoque {
+    @Id
     private long id;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
@@ -24,12 +24,13 @@ public class ItemDeEstoque {
         this.estoqueMax = estoqueMax;
     }
 
-    protected ItemDeEstoque(){}
+    protected ItemDeEstoque() {
+    }
 
     public long getId() {
         return id;
     }
-    
+
     public void setId(long id) {
         this.id = id;
     }

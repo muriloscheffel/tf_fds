@@ -40,7 +40,7 @@ public class ServicoDeVendas {
         novoOrcamento.addItensPedido(pedido);
         novoOrcamento.setNomeCliente(nomeCliente);
         novoOrcamento.setEstado(estado);
-        novoOrcamento.setPais("BRASIL"); // Fixo por enquanto
+        novoOrcamento.setPais("BRASIL");
         novoOrcamento.setDataCriacao(LocalDate.now());
 
         double custoItens = novoOrcamento.getItens().stream()
@@ -48,55 +48,63 @@ public class ServicoDeVendas {
                 .sum();
         novoOrcamento.setCustoItens(custoItens);
 
-        // Cálculo de Imposto com Strategy
         CalculadoraImposto calculadora = calculadoraImpostoFactory.getCalculadora(estado);
         double impostoEstadual = calculadora.calcular(custoItens, novoOrcamento.getItens());
         double impostoFederal = custoItens * 0.15; // Imposto federal fixo
         novoOrcamento.setImposto(impostoEstadual + impostoFederal);
 
-        // Lógica de desconto (a ser implementada no próximo passo)
-        if (novoOrcamento.getItens().size() > 5) {
-            novoOrcamento.setDesconto(custoItens * 0.05);
-        } else {
-            novoOrcamento.setDesconto(0.0);
+        double descontoTotal = 0.0;
+        for (ItemPedidoModel item : novoOrcamento.getItens()) {
+            if (item.getQuantidade() > 3) {
+                descontoTotal += (item.getProduto().getPrecoUnitario() * item.getQuantidade()) * 0.05;
+            }
         }
+        if (novoOrcamento.getItens().size() > 10) {
+            descontoTotal += custoItens * 0.10;
+        }
+        novoOrcamento.setDesconto(descontoTotal);
 
         novoOrcamento.setCustoConsumidor(custoItens + novoOrcamento.getImposto() - novoOrcamento.getDesconto());
+
         return this.orcamentos.cadastra(novoOrcamento);
     }
 
     public OrcamentoModel efetivaOrcamento(long id) {
-        // Recupera o orçamento
         var orcamento = this.orcamentos.recuperaPorId(id);
-        if (orcamento == null || orcamento.isEfetivado()) {
-            throw new IllegalArgumentException("Orçamento inexistente ou já efetivado");
+        if (orcamento == null) {
+            throw new IllegalArgumentException("Orçamento #" + id + " inexistente.");
+        }
+        if (orcamento.isEfetivado()) {
+            throw new IllegalStateException("Orçamento #" + id + " já foi efetivado.");
         }
 
-        // Adicionar validação de data (próximo passo)
+        LocalDate dataExpiracao = orcamento.getDataCriacao().plusDays(21);
+        if (LocalDate.now().isAfter(dataExpiracao)) {
+            throw new IllegalStateException("Orçamento #" + id + " está expirado.");
+        }
 
-        var ok = true;
-        // Verifica se tem quantidade em estoque para todos os itens
         for (ItemPedidoModel itemPedido : orcamento.getItens()) {
-            int qtdade = estoque.quantidadeEmEstoque(itemPedido.getProduto().getId());
-            if (qtdade < itemPedido.getQuantidade()) {
-                ok = false;
-                break;
+            int qtdadeEmEstoque = estoque.quantidadeEmEstoque(itemPedido.getProduto().getId());
+            if (qtdadeEmEstoque < itemPedido.getQuantidade()) {
+                throw new IllegalStateException(
+                        "Estoque insuficiente para o produto: " + itemPedido.getProduto().getDescricao());
             }
         }
-        // Se tem quantidade para todos os itens, da baixa no estoque para todos
-        if (ok) {
-            for (ItemPedidoModel itemPedido : orcamento.getItens()) {
-                estoque.baixaEstoque(itemPedido.getProduto().getId(), itemPedido.getQuantidade());
-            }
-            // Marca o orcamento como efetivado
-            orcamentos.marcaComoEfetivado(id);
+
+        for (ItemPedidoModel itemPedido : orcamento.getItens()) {
+            estoque.baixaEstoque(itemPedido.getProduto().getId(), itemPedido.getQuantidade());
         }
-        // Retorna o orçamento marcado como efetivado ou não conforme disponibilidade do
-        // estoque
+
+        orcamentos.marcaComoEfetivado(id);
+
         return orcamentos.recuperaPorId(id);
     }
 
     public OrcamentoModel buscaOrcamento(long idOrcamento) {
         return this.orcamentos.recuperaPorId(idOrcamento);
+    }
+
+    public List<OrcamentoModel> consultaOrcamentosEfetivados(LocalDate inicio, LocalDate fim) {
+        return orcamentos.findEfetivadosPorPeriodo(inicio, fim);
     }
 }

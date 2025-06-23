@@ -1,5 +1,6 @@
 package com.scheffel.tf_fds.persistencia.rep;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.scheffel.tf_fds.dominio.modelos.OrcamentoModel;
-
 import com.scheffel.tf_fds.dominio.persistencia.IOrcamentoRepositorio;
 import com.scheffel.tf_fds.persistencia.entity.Orcamento;
 import com.scheffel.tf_fds.persistencia.jpa.OrcamentoJPA_ItfRep;
@@ -48,5 +48,13 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
         }
         System.out.println("\n\n- efetivado: " + id);
 
+    }
+
+    @Override
+    public List<OrcamentoModel> findEfetivadosPorPeriodo(LocalDate inicio, LocalDate fim) {
+        return orcamentos.findByEfetivadoIsTrueAndDataCriacaoBetween(inicio, fim)
+                .stream()
+                .map(Orcamento::toOrcamentoModel)
+                .toList();
     }
 }

@@ -31,35 +31,98 @@ public class OrcamentoModel {
         this.itens = new LinkedList<>();
         this.efetivado = false;
     }
-    
-    // Getters e Setters para os novos campos
-    public String getNomeCliente() { return nomeCliente; }
-    public void setNomeCliente(String nomeCliente) { this.nomeCliente = nomeCliente; }
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
-    public String getPais() { return pais; }
-    public void setPais(String pais) { this.pais = pais; }
-    public LocalDate getDataCriacao() { return dataCriacao; }
-    public void setDataCriacao(LocalDate dataCriacao) { this.dataCriacao = dataCriacao; }
-    
-    // Métodos existentes...
-    public void addItensPedido(ItemPedidoModel item) { itens.add(item); }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public void addItensPedido(ItemPedidoModel item) {
+        itens.add(item);
+    }
+
     public void addItensPedido(PedidoModel pedido) {
         for (ItemPedidoModel itemPedido : pedido.getItens()) {
             itens.add(itemPedido);
         }
     }
-    public List<ItemPedidoModel> getItens() { return itens; }
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
-    public double getCustoItens() { return custoItens; }
-    public void setCustoItens(double custoItens) { this.custoItens = custoItens; }
-    public double getImposto() { return imposto; }
-    public void setImposto(double imposto) { this.imposto = imposto; }
-    public double getDesconto() { return desconto; }
-    public void setDesconto(double desconto) { this.desconto = desconto; }
-    public double getCustoConsumidor() { return custoConsumidor; }
-    public void setCustoConsumidor(double custoConsumidor) { this.custoConsumidor = custoConsumidor; }
-    public boolean isEfetivado() { return efetivado; }
-    public void efetiva() { efetivado = true; }
+
+    public List<ItemPedidoModel> getItens() {
+        return itens;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getCustoItens() {
+        return custoItens;
+    }
+
+    public void setCustoItens(double custoItens) {
+        this.custoItens = custoItens;
+    }
+
+    public double getImposto() {
+        return imposto;
+    }
+
+    public void setImposto(double imposto) {
+        this.imposto = imposto;
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
+    public double getCustoConsumidor() {
+        return custoConsumidor;
+    }
+
+    public void setCustoConsumidor(double custoConsumidor) {
+        this.custoConsumidor = custoConsumidor;
+    }
+
+    public boolean isEfetivado() {
+        return efetivado;
+    }
+
+    public void efetiva() {
+        efetivado = true;
+    }
 }

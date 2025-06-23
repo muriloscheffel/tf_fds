@@ -36,7 +36,6 @@ public class OrcamentoDTO {
         }
     }
 
-    // Adicionar Getters para os novos campos
     public String getNomeCliente() {
         return nomeCliente;
     }
@@ -49,7 +48,6 @@ public class OrcamentoDTO {
         return dataCriacao;
     }
 
-    // Getters existentes...
     public long getId() {
         return id;
     }
